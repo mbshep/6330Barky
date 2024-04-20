@@ -53,6 +53,34 @@ def test_database_manager_create_table(database_manager):
     database_manager.drop_table("bookmarks")
 
 
+def test_database_manager_drop_table(database_manager):
+    # arrange and act
+    database_manager.create_table(
+        "bookmarks",
+        {
+            "id": "integer primary key autoincrement",
+            "title": "text not null",
+            "url": "text not null",
+            "notes": "text",
+            "date_added": "text not null",
+        },
+    )
+
+    # assert
+    conn = database_manager.connection
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """ DROP TABLE 'bookmarks' """
+    )
+
+    assert cursor.fetchone()[0] == 1
+
+    # cleanup
+    # this is probably not really needed
+    database_manager.drop_table("bookmarks")
+
+
 def test_database_manager_add_bookmark(database_manager):
     # arrange
     database_manager.create_table(
@@ -75,6 +103,71 @@ def test_database_manager_add_bookmark(database_manager):
 
     # act
     database_manager.add("bookmarks", data)
+
+    # assert
+    conn = database_manager.connection
+    cursor = conn.cursor()
+    cursor.execute(""" SELECT * FROM bookmarks WHERE title='test_title' """)
+    assert cursor.fetchone()[0] == 1
+
+
+def test_database_manager_delete_bookmark(database_manager):
+    # arrange
+    database_manager.create_table(
+        "bookmarks",
+        {
+            "id": "integer primary key autoincrement",
+            "title": "text not null",
+            "url": "text not null",
+            "notes": "text",
+            "date_added": "text not null",
+        },
+    )
+
+    data = {
+        "title": "test_title",
+        "url": "http://example.com",
+        "notes": "test notes",
+        "date_added": datetime.utcnow().isoformat(),
+    }
+
+    # act  add the row
+    database_manager.add("bookmarks", data)
+    # act delete the row
+    database_manager.delete("bookmarks", data)
+
+    # assert
+    conn = database_manager.connection
+    cursor = conn.cursor()
+    # try to select the row - this should fail
+    cursor.execute(""" SELECT * FROM bookmarks WHERE title='test_title' """)
+    assert cursor.fetchone()[0] == 1
+
+
+def test_database_manager_select_bookmark(database_manager):
+    # arrange
+    database_manager.create_table(
+        "bookmarks",
+        {
+            "id": "integer primary key autoincrement",
+            "title": "text not null",
+            "url": "text not null",
+            "notes": "text",
+            "date_added": "text not null",
+        },
+    )
+
+    data = {
+        "title": "test_title",
+        "url": "http://example.com",
+        "notes": "test notes",
+        "date_added": datetime.utcnow().isoformat(),
+    }
+
+    # act  add the row
+    database_manager.add("bookmarks", data)
+    # act select  the row
+    database_manager.select("bookmarks", data)
 
     # assert
     conn = database_manager.connection
