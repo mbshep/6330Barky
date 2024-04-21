@@ -31,7 +31,8 @@ class Snippet(models.Model):
     language = models.CharField(
         choices=LANGUAGE_CHOICES, default="python", max_length=100
     )
-    style = models.CharField(choices=STYLE_CHOICES, default="friendly", max_length=100)
+    style = models.CharField(choices=STYLE_CHOICES,
+                             default="friendly", max_length=100)
     owner = models.ForeignKey(
         "auth.User", related_name="snippets", on_delete=models.CASCADE
     )
@@ -56,3 +57,23 @@ class Snippet(models.Model):
 
     def __str__(self) -> str:
         return f"{self.title} - {self.id}"
+
+
+'''
+class User(models.Model):
+    id = models.IntegerField(primary_key=True),
+    password = models.TextField(blank=False),
+    last_login = models.DateTimeField(auto_now_add=True),
+    is_superuser = models.BooleanField(default=False),
+    username = models.CharField(
+        max_length=150, unique=True, blank=False),
+    last_name = models.CharField(max_length=150, blank=False),
+    email = models.EmailField(max_length=254, blank=False),
+    is_staff = models.BooleanField(default=False),
+    is_active = models.BooleanField(default=True),
+    date_joined = models.DateTimeField(auto_now_add=True),
+    first_name = models.CharField(max_length=150, blank=False)
+
+    def __str__(self):
+        return f"{self.username}"
+'''

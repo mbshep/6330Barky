@@ -1,6 +1,11 @@
+# Mei Beth Shepherd updates to Barky Refactor 1
+
+I added tests for snippets (create, retrieve, list, delete, update)
+Next added tests for users (create, retrieve, list, delete, update)
+
 # Barky Refactor 1
 
-Barky is inspired by Dane Hillard's (https://github.com/daneah/practices-of-the-python-pro) Bark example of an application that demonstrates some basic software engineering principles such as:
+Barky is inspired by Dane Hillard's (<https://github.com/daneah/practices-of-the-python-pro>) Bark example of an application that demonstrates some basic software engineering principles such as:
 
 Let's look at the elements in this list more carefully to guide what we'll do in this firs refactor:
 
@@ -26,6 +31,7 @@ We'll implement this layered archicture alongside and within the provisions of D
 # Leveraging the Django ORM
 
 ## Persistence
+
 If we use the Django ORM then our task is to create a model to represent the table rather than raw SQL.
 
 So, whereas we utilize a table in the database called `bookmarks`:
@@ -63,6 +69,7 @@ class Bookmark(models.Model):
 For comparitive convenience, I will merge the **snippets** project with Barky for the refactor.
 
 ## Barky Refactoring Roadmap
+
 Dane Hillard's code focused on a command-line interface, but we will systematically refactor that code, across a series of branches, to do the following:
 
 1. Replace the custom data handling (the DatabaseManager module) with the [Django O/RM](https://docs.djangoproject.com/en/5.0/topics/db/queries/)
@@ -79,11 +86,9 @@ Dane Hillard's code focused on a command-line interface, but we will systematica
     1. [CQRS in general](https://douwevandermeij.medium.com/the-repository-pattern-via-cqrs-with-python-django-elasticsearch-cb38437721d3) and in [Django](https://django-cqrs.readthedocs.io/en/latest/)
     2. Dependency injection - [A good overview](https://thinhdanggroup.github.io/python-dependency-injection/), [DI with specific Flask and Django examples](https://snyk.io/blog/dependency-injection-python/), and a [Comprehensive Python Dependency Injection Framework](https://python-dependency-injector.ets-labs.org/)
 
-
-
 ## Refactor to Assignments Map
 
-1. Refactor 1 (DRF, ORM, and Repository Pattern): Assignment 5 
+1. Refactor 1 (DRF, ORM, and Repository Pattern): Assignment 5
 2. Refactor 2 (UoW): Assignment 6
 3. Refactor 3 (Celery/Messages and the Return of the Command): Assignment 7
 4. Refactor 4 (CQRS and DI/Bootstrapping): Assignment 8
