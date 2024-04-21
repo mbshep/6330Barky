@@ -344,6 +344,14 @@ class OtherTests(APITestCase):
         self.assertEqual(response.data["results"]["title"], self.snippet.title)
 
     # 17. list bookmarks by user
+    def test_list_bookmarks(self):
+        """
+        Ensure we can list all bookmark objects for a user.
+        """
+        response = self.client.filter(self.list_url)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response.data["results"]
+                         [0]["title"], self.bookmark.title)
 
 
     # 18. list snippets by user
