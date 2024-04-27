@@ -26,6 +26,18 @@ class RepositoryTests(TestCase):
         self.repository.add(self.domain_bookmark_1)
         self.assertEqual(Bookmark.objects.count(), 1)
 
+    def test_repository_edit(self):
+        self.domain_bookmark_1.title = "Really Awesome Django"
+        self.repository.update(self.domain_bookmark_1)
+        self.assertEqual(Bookmark.objects.get(
+            id=1).title, "Really Awesome Django")
+
+
+''' I tried to create a delete or remove test but that feature doesn't exist in the DjangoRepository.
+    def test_repository_remove(self):
+        self.repository.remove(self.domain_bookmark_1)
+        self.assertEqual(Bookmark.objects.count(), 0)'''
+
 
 class UoWTests(TestCase):
     def setUp(self):

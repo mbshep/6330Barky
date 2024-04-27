@@ -1,3 +1,9 @@
+# MBS Refactor 22 Readme Changes
+
+I created an additional test in tests.py RepositoryTests to try to update a bookmark. This test works test_repository_edit
+
+Then I tried to create a delete or remove test but that feature doesn't exist in the DjangoRepository, which is defined in the barkyarch/adapters/repository.py file, so this test failed. I commented it out in my final code.
+
 # Barky Refactor 22
 
 The major difference in this refactor is the inclusion of a few key concepts which are explored in depth in P&G:
